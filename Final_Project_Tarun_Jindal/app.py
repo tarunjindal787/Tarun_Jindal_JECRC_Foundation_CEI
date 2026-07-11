@@ -11,7 +11,7 @@ from train_models import train_forecasting_model, train_anomaly_model
 
 # --- PAGE CONFIG ---
 st.set_page_config(
-    page_title="Energy Analytics AI",
+    page_title="Energy Analytics Dashboard",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -75,13 +75,13 @@ def load_models():
 
 def main():
     st.sidebar.title("⚡ Energy Analytics")
-    st.sidebar.markdown("AI-Powered Smart Meter Analysis")
+    st.sidebar.markdown("Smart Meter Data Analysis")
     
-    page = st.sidebar.radio("Navigation", ["Overview", "AI Forecasting", "Anomaly Detection"])
+    page = st.sidebar.radio("Navigation", ["Overview", "Load Forecasting", "Pattern Analysis"])
     
     st.title("London Smart Meters Dashboard")
     
-    with st.spinner("Loading data & AI models..."):
+    with st.spinner("Loading data & models..."):
         df, city_daily = load_all_data()
         rf_model, iso_model, latest_date = load_models()
         
@@ -128,9 +128,9 @@ def main():
         fig.update_traces(line_color="#4ECDC4", line_width=3)
         st.plotly_chart(fig, use_container_width=True)
 
-    elif page == "AI Forecasting":
-        st.header("AI 7-Day Forecast")
-        st.markdown("Machine Learning predictions for the next week of energy consumption.")
+    elif page == "Load Forecasting":
+        st.header("7-Day Load Forecast")
+        st.markdown("Statistical predictions for the next week of energy consumption based on historical patterns.")
         
         future_dates = [latest_date + timedelta(days=i) for i in range(1, 8)]
         future_df = pd.DataFrame({'date': future_dates})
@@ -158,9 +158,9 @@ def main():
         fig.update_layout(title="Energy Forecast (Next 7 Days)", template="plotly_dark")
         st.plotly_chart(fig, use_container_width=True)
 
-    elif page == "Anomaly Detection":
+    elif page == "Pattern Analysis":
         st.header("Household Usage Patterns & Anomalies")
-        st.markdown("Using **Isolation Forest** algorithms to automatically flag households with highly irregular energy consumption patterns.")
+        st.markdown("Automatically flagging households with irregular energy consumption patterns to identify potential issues.")
         
         recent_date = df['tstp'].dt.date.max()
         recent_data = df[df['tstp'].dt.date == recent_date].copy()
