@@ -6,8 +6,8 @@ from datetime import datetime, timedelta
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 def generate_synthetic_data():
-    """Generates synthetic smart meter data mimicking the London dataset for demonstration."""
-    print("Generating synthetic data since real dataset was not found...")
+    """Generates mock smart meter data for local testing when kaggle data isn't present."""
+    print("Generating mock data for local development...")
     os.makedirs(DATA_DIR, exist_ok=True)
     
     # Generate 1 year of hourly data for 50 households
@@ -42,11 +42,11 @@ def generate_synthetic_data():
             
     df = pd.DataFrame(data)
     df.to_csv(os.path.join(DATA_DIR, "synthetic_energy.csv"), index=False)
-    print("Synthetic data saved.")
+    print("Mock data generated successfully.")
     return df
 
 def load_data():
-    """Loads dataset if available, otherwise generates synthetic data."""
+    """Loads dataset if available, otherwise runs the mock generator."""
     real_data_path = os.path.join(DATA_DIR, "halfhourly_dataset")
     synthetic_path = os.path.join(DATA_DIR, "synthetic_energy.csv")
     
@@ -55,7 +55,7 @@ def load_data():
         pass
     
     if os.path.exists(synthetic_path):
-        print("Loading existing synthetic data.")
+        print("Loading local mock dataset.")
         df = pd.read_csv(synthetic_path, parse_dates=['tstp'])
         return df
         
