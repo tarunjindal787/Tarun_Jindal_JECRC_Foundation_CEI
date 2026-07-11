@@ -91,6 +91,15 @@ def main():
 
     if page == "Overview":
         st.header("Historical City-Wide Energy Consumption")
+        
+        with st.expander("🌍 Initiative Objectives & Context", expanded=True):
+            st.markdown("""
+            **This dashboard is built to address the following core objectives:**
+            - **Grid Modernization:** To help understand complex energy consumption patterns in order to upgrade an aging electrical grid.
+            - **Rollout Preparation:** To gather baseline data and trial-run insights ahead of massive, nationwide smart meter rollouts.
+            - **Climate & Sustainability Action:** To analyze how micro-habits, demographic backgrounds, and weather conditions impact energy demand, allowing for localized energy-saving strategies and tackling climate change.
+            """)
+            
         st.markdown("Visualizing the aggregated daily energy consumption across all sampled households in London.")
         
         recent = city_daily.tail(60).copy()
