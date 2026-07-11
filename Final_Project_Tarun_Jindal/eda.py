@@ -49,7 +49,7 @@ daily_acorn = pd.merge(daily_df, households_df, on='LCLid', how='inner')
 
 if not daily_acorn.empty and 'Acorn_Group' in daily_acorn.columns:
     plt.figure(figsize=(10, 6))
-    sns.boxplot(x='Acorn_Group', y='energy_sum', data=daily_acorn, palette='viridis')
+    sns.boxplot(x='Acorn_Group', y='energy_sum', data=daily_acorn, hue='Acorn_Group', palette='viridis', legend=False)
     plt.title('Energy Consumption Distribution by ACORN Group')
     plt.xlabel('ACORN Group')
     plt.ylabel('Daily Energy (kWh)')
