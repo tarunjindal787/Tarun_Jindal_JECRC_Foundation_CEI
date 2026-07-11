@@ -1,44 +1,18 @@
-# Final Project: London Smart Meter Energy Analytics
-**Author:** Tarun Jindal
+# Smart Meters Energy Analytics Project
 
-Welcome to my final project for the JECRC Foundation CEI program! 
+## What this project is
+This is a data science project built to analyze electricity consumption across London households. The goal is to take raw smart meter logs, combine them with local weather conditions and calendar holidays, and use machine learning to understand how people use power and predict future energy loads.
 
-This repository contains the source code for my end-to-end Energy Analytics system. I built this dashboard to analyze smart meter data from London households and apply machine learning to forecast energy consumption and detect anomalies.
+## Project Objective
+The main goal of this system is to study daily electrical consumption patterns. By matching energy usage to household demographics and weather metrics, the project helps find ways to optimize the energy grid, understand different neighborhood habits, and provide insights that can help tackle climate change through smarter energy management.
 
-## Project Motivation
-The core objectives behind this initiative are:
-1. **Grid Modernization**: To help the British government and energy suppliers understand complex energy consumption patterns in order to upgrade an aging electrical grid.
-2. **Rollout Preparation**: To gather baseline data and trial-run insights ahead of massive, nationwide smart meter rollouts.
-3. **Climate & Sustainability Action**: To analyze how micro-habits, demographic backgrounds, and weather conditions impact energy demand, allowing suppliers to build localized energy-saving strategies and tackle climate change.
+## Repository Structure
+The project is split into separate, sequential files with no complex custom functions so that the entire pipeline is flat and easy to follow line-by-line:
 
-## Tech Stack
-- **Python**: Core programming language.
-- **Pandas & NumPy**: Data processing and aggregation.
-- **Scikit-Learn**: Machine learning models (`RandomForestRegressor` for forecasting, `IsolationForest` for pattern analysis).
-- **Streamlit**: Web dashboard framework.
-- **Plotly**: Interactive data visualizations.
-
-## How to Run Locally
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/tarunjindal787/Tarun_Jindal_JECRC_Foundation_CEI.git
-   cd Tarun_Jindal_JECRC_Foundation_CEI/Final_Project_Tarun_Jindal
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run the dashboard:**
-   ```bash
-   streamlit run app.py
-   ```
-   *(Note: The first time you run the app, it will take a few seconds to run the data pipeline and train the models locally.)*
-
-## Deployment
-This project is configured to be easily deployed on Streamlit Community Cloud. Simply connect this GitHub repository and select `Final_Project_Tarun_Jindal/app.py` as the main entry point.
-
----
-*Created as part of the JECRC Foundation CEI initiative.*
+*   config.py: Holds global setup variables, data directory paths, and row limits to protect notebook memory.
+*   data_loader.py: Safely loads the raw CSV files using pandas and limits rows on the massive consumption datasets to prevent RAM crashes.
+*   preprocessing.py: Formats date columns into datetime objects, cleans categorical text, and fixes missing weather values.
+*   eda.py: Generates and saves charts showing consumption trends over time, temperature correlations, and demographic breakdowns.
+*   feature_engineering.py: Merges all dataframes together on timestamps and creates lag variables and rolling averages.
+*   train.py: Splitting the final data chronologically and training an XGBoost/LightGBM regressor model to forecast future electrical loads.
+*   main.py: The single entry point script used to run files 1 through 6 in a continuous order.
